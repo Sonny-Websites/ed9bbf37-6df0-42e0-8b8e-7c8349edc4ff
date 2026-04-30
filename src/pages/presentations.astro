@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { siteConfig } from '../config/site';
+---
+
+<BaseLayout
+  title="Presentations"
+  description="Download S Solutions presentation resources."
+  ogTitle="S Solutions Presentations"
+  ogDescription="Presentation resources and downloads from S Solutions."
+>
+  <Header current="presentations" />
+  <main class="page-shell" role="main">
+    <section class="page-hero" aria-labelledby="presentationsHeading">
+      <p class="eyebrow">Resources</p>
+      <h1 id="presentationsHeading">Presentations</h1>
+      <p>Presentation files can be listed here for download when the client-provided PPT attachments are available.</p>
+    </section>
+
+    <section class="content-section" aria-labelledby="downloadsHeading">
+      <div class="section-heading">
+        <h2 id="downloadsHeading">Downloads</h2>
+        <p>Use the exact file names from the supplied attachments.</p>
+      </div>
+      {siteConfig.presentations.length > 0 ? (
+        <div class="resource-list">
+          {siteConfig.presentations.map((presentation) => (
+            <a class="resource-item" href={presentation.href} download>
+              <span>{presentation.name}</span>
+              <strong>Download</strong>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="empty-state">
+          <h3>No presentation files found</h3>
+          <p>Client said PPT files were attached, but none are present in this workspace. Add the PPT files to the public assets and list them in <code>src/config/site.ts</code>.</p>
+        </div>
+      )}
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

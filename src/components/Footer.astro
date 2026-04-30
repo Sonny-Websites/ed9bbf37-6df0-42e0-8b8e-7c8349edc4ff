@@ -1,4 +1,6 @@
 ---
+import { siteConfig } from '../config/site';
+
 const base = import.meta.env.BASE_URL.replace(/\/$/, '') || '';
 ---
 
@@ -8,28 +10,31 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '') || '';
       <h3>Quick Links</h3>
       <ul>
         <li><a href={base + '/'}>Home</a></li>
-        <li><a href={base + '/about/'}>About</a></li>
-        <li><a href={base + '/#contact'}>Contact</a></li>
+        <li><a href={base + '/#services'}>Services</a></li>
+        <li><a href={base + '/partnerships/'}>Partnerships</a></li>
+        <li><a href={base + '/presentations/'}>Presentations</a></li>
+        <li><a href={base + '/contact/'}>Contact</a></li>
       </ul>
     </div>
     <div class="footer-section">
-      <h3>Follow Us</h3>
+      <h3>Social</h3>
       <div class="social-links">
-        <a href="https://twitter.com" aria-label="Twitter" target="_blank" rel="noopener noreferrer">Twitter</a>
-        <a href="https://facebook.com" aria-label="Facebook" target="_blank" rel="noopener noreferrer">Facebook</a>
-        <a href="https://linkedin.com" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        {siteConfig.instagramUrl ? (
+          <a href={siteConfig.instagramUrl} aria-label="Instagram" target="_blank" rel="noopener noreferrer">Instagram</a>
+        ) : (
+          <span class="placeholder-link">Instagram</span>
+        )}
       </div>
     </div>
     <div class="footer-section">
       <h3>Contact</h3>
       <ul>
-        <li>📍 123 Business St, City, State 12345</li>
-        <li>📧 hello@mysite.com</li>
-        <li>📞 (555) 123-4567</li>
+        <li><a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a></li>
+        <li>WhatsApp: add number</li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
-    <p>&copy; <span id="year">2026</span> My Site. All rights reserved.</p>
+    <p>&copy; <span id="year">2026</span> {siteConfig.name}. All rights reserved.</p>
   </div>
 </footer>
