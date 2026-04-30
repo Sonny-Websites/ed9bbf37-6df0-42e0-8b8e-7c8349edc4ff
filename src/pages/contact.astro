@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { siteConfig } from '../config/site';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '') || '';
+const whatsappHref = siteConfig.whatsappNumber
+  ? `https://wa.me/${siteConfig.whatsappNumber.replace(/\D/g, '')}`
+  : undefined;
+---
+
+<BaseLayout
+  title="Contact"
+  description="Contact S Solutions for brand partnerships, recruitment, placement, and web services."
+  ogTitle="Contact S Solutions"
+  ogDescription="Get in touch with S Solutions."
+>
+  <Header current="contact" />
+  <main class="page-shell" role="main">
+    <section class="page-hero contact-hero" aria-labelledby="contactHeading">
+      <p class="eyebrow">Contact</p>
+      <h1 id="contactHeading">Get in touch with S Solutions.</h1>
+      <p>Send a message about brand partnerships, recruitment and placement, or web services.</p>
+      <div class="contact-methods" aria-label="Contact methods">
+        <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+        {whatsappHref ? (
+          <a class="btn btn-primary" href={whatsappHref} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        ) : (
+          <span class="btn btn-muted">WhatsApp: add number</span>
+        )}
+      </div>
+    </section>
+
+    <section class="contact" role="region" aria-labelledby="contactFormHeading">
+      <h2 id="contactFormHeading">Contact Form</h2>
+      <p class="contact-description">Messages are configured for {siteConfig.email}.</p>
+      <form id="contactForm" method="post" action="/__forms/contact" data-thank-you={base + '/thank-you/'} novalidate>
+        <input type="hidden" name="_to" value={siteConfig.email} />
+        <div class="form-group">
+          <label for="name">Name <span aria-label="required">*</span></label>
+          <input type="text" id="name" name="name" required aria-required="true" aria-describedby="nameError" />
+          <span id="nameError" class="error-message"></span>
+        </div>
+        <div class="form-group">
+          <label for="email">Email <span aria-label="required">*</span></label>
+          <input type="email" id="email" name="email" required aria-required="true" aria-describedby="emailError" />
+          <span id="emailError" class="error-message"></span>
+        </div>
+        <div class="form-group">
+          <label for="subject">Subject <span aria-label="required">*</span></label>
+          <input type="text" id="subject" name="subject" required aria-required="true" aria-describedby="subjectError" />
+          <span id="subjectError" class="error-message"></span>
+        </div>
+        <div class="form-group">
+          <label for="message">Message <span aria-label="required">*</span></label>
+          <textarea id="message" name="message" rows="5" required aria-required="true" aria-describedby="messageError"></textarea>
+          <span id="messageError" class="error-message"></span>
+        </div>
+        <input type="text" name="_hp" style="display:none" autocomplete="off" tabindex="-1" />
+        <button type="submit" id="submitBtn" class="btn btn-primary" aria-busy="false">Send Message</button>
+      </form>
+      <div id="responseMessage" role="alert" aria-live="polite"></div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
 
             // Clear previous error messages
-            ['name', 'email', 'message'].forEach(fieldId => {
+            ['name', 'email', 'subject', 'message'].forEach(fieldId => {
                 const field = document.getElementById(fieldId);
                 const errorSpan = document.getElementById(fieldId + 'Error');
                 if (field) {
@@ -45,12 +45,13 @@ document.addEventListener('DOMContentLoaded', function() {
             // Validate form fields
             const name = document.getElementById('name').value.trim();
             const email = document.getElementById('email').value.trim();
+            const subject = document.getElementById('subject').value.trim();
             const message = document.getElementById('message').value.trim();
             let isValid = true;
 
-            if (!name) {
+            if (!name || name.length < 2) {
                 document.getElementById('name').classList.add('error');
-                document.getElementById('nameError').textContent = 'Name is required';
+                document.getElementById('nameError').textContent = 'Name must be at least 2 characters long';
                 isValid = false;
             }
 
@@ -61,6 +62,12 @@ document.addEventListener('DOMContentLoaded', function() {
             } else if (!isValidEmail(email)) {
                 document.getElementById('email').classList.add('error');
                 document.getElementById('emailError').textContent = 'Please enter a valid email address';
+                isValid = false;
+            }
+
+            if (!subject) {
+                document.getElementById('subject').classList.add('error');
+                document.getElementById('subjectError').textContent = 'Subject is required';
                 isValid = false;
             }
 
@@ -98,8 +105,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             // Submit form (use current origin for static deploy)
-            const thankYouUrl = new URL('/thank-you/', window.location.origin).pathname;
-            fetch('/__forms/contact', {
+            const thankYouUrl = contactForm.dataset.thankYou || '/thank-you/';
+            const endpoint = contactForm.getAttribute('action') || '/__forms/contact';
+            fetch(endpoint, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',

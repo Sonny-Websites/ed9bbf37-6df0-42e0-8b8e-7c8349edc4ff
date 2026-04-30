@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '') || '';
+---
+
+<BaseLayout
+  title="Partnerships"
+  description="Partnership opportunities with S Solutions for brands, vendors, tie-ups, and franchises."
+  ogTitle="S Solutions Partnerships"
+  ogDescription="Explore brand collaboration, vendor, tie-up, and franchise opportunities with S Solutions."
+>
+  <Header current="partnerships" />
+  <main class="page-shell" role="main">
+    <section class="page-hero" aria-labelledby="partnershipsHeading">
+      <p class="eyebrow">Partnerships</p>
+      <h1 id="partnershipsHeading">Brands, vendors, tie-ups, and franchise opportunities.</h1>
+      <p>Use this area for the partnership overview and opportunity copy from the client presentation once supplied.</p>
+    </section>
+
+    <section class="content-section" aria-labelledby="partnerLogosHeading">
+      <div class="section-heading">
+        <h2 id="partnerLogosHeading">Partner & Brand Logos</h2>
+        <p>Logo placeholders are shown because no attached PPT assets were found in the workspace.</p>
+      </div>
+      <div class="logo-grid" aria-label="Partner logo placeholders">
+        <div class="logo-tile">Logo 1</div>
+        <div class="logo-tile">Logo 2</div>
+        <div class="logo-tile">Logo 3</div>
+        <div class="logo-tile">Logo 4</div>
+        <div class="logo-tile">Logo 5</div>
+        <div class="logo-tile">Logo 6</div>
+      </div>
+    </section>
+
+    <section class="content-section split-section" aria-labelledby="opportunitiesHeading">
+      <div>
+        <h2 id="opportunitiesHeading">Partnership Opportunities</h2>
+        <p>S Solutions is prepared to support brand collaborations, partner programs, vendor relationships, tie-ups, and franchise conversations.</p>
+        <p class="muted">Replace this placeholder with exact positioning and proof points from the client presentation.</p>
+      </div>
+      <a class="btn btn-primary" href={base + '/contact/'}>Start a Conversation</a>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
